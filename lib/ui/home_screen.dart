@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpaper_app/constants/list_of_images.dart';
@@ -61,23 +62,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSpacing: 8,
                   childAspectRatio: 0.5,
                 ),
-                itemCount: wallpapers[cat]!.length,
+                itemCount: wallpapers[cat]?.length,
                 itemBuilder: (context, index) => InkWell(
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => FullImage(
-                          imageUrl: wallpapers[cat]![index],
+                          imageUrl: wallpapers[cat]?[index] ?? '',
                         ),
                       )),
                   child: Hero(
-                    tag: wallpapers[cat]![index],
+                    tag: wallpapers[cat]?[index] ?? 0,
                     child: Container(
                       color: Colors.white30,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          wallpapers[cat]![index],
+                        // child: Image.network(
+                        //   wallpapers[cat]?[index] ?? '',
+                        //   fit: BoxFit.cover,
+                        // ),
+                        child: CachedNetworkImage(
+                          imageUrl: wallpapers[cat]?[index] ?? '',
+                          placeholder: (context, url) => const SizedBox(
+                            height: 10.0,
+                            width: 10.0,
+                            child: Center(child: CircularProgressIndicator()),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                           fit: BoxFit.cover,
                         ),
                       ),
