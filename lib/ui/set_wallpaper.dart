@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpaper_app/ui/full_image.dart';
 
@@ -76,7 +77,7 @@ class SetWallpaper extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              setWallpaper(images![curIndex]);
+              setWallpaper(context, images![curIndex]);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
@@ -94,31 +95,25 @@ class SetWallpaper extends StatelessWidget {
     );
   }
 
-  Future<void> setWallpaper(String imageurl) async {
+  Future<void> setWallpaper(BuildContext context, String imageurl) async {
     try {
       int location = WallpaperManager.BOTH_SCREEN;
       var file = await DefaultCacheManager().getSingleFile(imageurl);
       bool result =
           await WallpaperManager.setWallpaperFromFile(file.path, location);
       if (result) {
-        ScaffoldMessenger(
-            child: SnackBar(
+        Fluttertoast.showToast(
+          msg: 'Wallpaper set successfully',
           backgroundColor: Colors.black,
-          content: Text(
-            'Wallpaper Set SuccessFully',
-            style: GoogleFonts.montserrat(color: Colors.white),
-          ),
-        ));
+          textColor: Colors.white,
+        );
       }
     } catch (e) {
-      ScaffoldMessenger(
-          child: SnackBar(
+      Fluttertoast.showToast(
+        msg: 'Error setting wallpaper',
         backgroundColor: Colors.black,
-        content: Text(
-          e.toString(),
-          style: GoogleFonts.montserrat(color: Colors.white),
-        ),
-      ));
+        textColor: Colors.white,
+      );
     }
   }
 }
