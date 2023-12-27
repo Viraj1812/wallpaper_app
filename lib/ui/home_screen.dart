@@ -18,16 +18,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Wallpaper App',
-          style: GoogleFonts.montserrat(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+          title: Text(
+            'Wallpaper App',
+            style: GoogleFonts.montserrat(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 236, 236, 236),
-      ),
+          backgroundColor: Colors.white),
       body: Column(
         children: [
           Container(
