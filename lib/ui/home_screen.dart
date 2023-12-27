@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpaper_app/constants/list_of_images.dart';
-import 'package:wallpaper_app/ui/full_screen_wallpaper.dart';
+import 'package:wallpaper_app/ui/set_wallpaper.dart';
 import 'package:wallpaper_app/widgets/cat_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,8 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FullImage(
+                        builder: (context) => SetWallpaper(
                           imageUrl: wallpapers[cat]?[index] ?? '',
+                          cat: cat,
+                          images: wallpapers[cat],
                         ),
                       )),
                   child: Hero(
